@@ -229,7 +229,7 @@ class Amazon_Payments_Model_SimplePath
      */
     public function getSimplepathUrl()
     {
-        return self::API_ENDPOINT_DOWNLOAD_KEYS . '?returnUrl=' . $this->getListenerUrl() .
+        return self::API_ENDPOINT_DOWNLOAD_KEYS . '?keyShareURL=' . $this->getListenerUrl() .
 						'&pub_key=' . urlencode($this->getPublicKey()) .
 						'#event/fromSP';
     }

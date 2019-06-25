@@ -289,6 +289,7 @@ class Amazon_Payments_Model_PaymentMethod extends Mage_Payment_Model_Method_Abst
 
                 // specific error handling for InvalidPaymentMethod decline scenario
                 if($status->getReasonCode() == 'InvalidPaymentMethod') {
+                        Mage::getSingleton('checkout/session')->setIsAmazonRedirect(true);
                         Mage::throwException("There was a problem with your payment. Please select another payment method from the Amazon Wallet and try again.");
                         break;
                 }

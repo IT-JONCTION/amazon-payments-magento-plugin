@@ -28,21 +28,26 @@ class Amazon_Payments_CompleteController extends Mage_Core_Controller_Front_Acti
                     return $this->_redirect('checkout/onepage/success');
                 } catch (Exception $e) {
                     Mage::getSingleton('core/session')->addError($e->getMessage());
+                    if (Mage::getSingleton('checkout/session')->getIsAmazonRedirect()) {
+                        $this->_redirect('checkout/amazon_payments');
+                        return;
+                    }
                     Mage::logException($e);
                 }
                 break;
             case 'Failure':
                 Mage::getSingleton('core/session')->addError(
-                    'Amazon Pay was unable to authenticate the payment instrument.  '
-                    . 'Please try again, or use a different payment method.'
+                    __('There was a problem with your payment. Your order hasn\'t been placed, and you haven\'t been charged.' .
+                    '<script>setTimeout(function(){ amazon.Login.logout(); }, 1000);</script>')
                 );
                 break;
             case 'Abandoned':
             default:
                 Mage::getSingleton('core/session')->addError(
-                    'The SCA challenge was not completed successfully.  '
-                    . 'Please try again, or use a different payment method.'
+                    __('Something\'s wrong with your payment method. To place your order, try another.')
                 );
+                $this->_redirect('checkout/amazon_payments');
+                return;
         }
 
         $this->_redirect('checkout/cart');

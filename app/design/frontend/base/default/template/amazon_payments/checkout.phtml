@@ -310,11 +310,15 @@ AmazonPaymentsMageCheckout.prototype = {
                 msg = "You have exceeded your total authorization amount for this billing agreement period. Please contact the store manager."
             }
 
-            if (msg) {
-                alert(msg);
+            if (msg.indexOf("PaymentMethodNotAllowed") != -1) {
+                msg = "There was a problem with your payment. Please select another payment method from the Amazon Wallet and try again.";
             }
 
-            // Widget reload requried
+            if (msg) {
+                alert(Translator.translate(msg));
+            }
+
+            // Widget reload required
             if (msg.indexOf("TransactionTimedOut") != -1) {
                 location.reload();
             }

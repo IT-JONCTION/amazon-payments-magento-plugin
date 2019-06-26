@@ -29,7 +29,8 @@ class Amazon_Payments_CompleteController extends Mage_Core_Controller_Front_Acti
                 } catch (Exception $e) {
                     Mage::getSingleton('core/session')->addError($e->getMessage());
                     if (Mage::getSingleton('checkout/session')->getIsAmazonRedirect()) {
-                        $this->_redirect('checkout/amazon_payments');
+                        $query = 'order_reference=' . $payment['additional_information']['order_reference'];
+                        $this->_redirect('checkout/amazon_payments', array('_query' => $query));
                         return;
                     }
                     Mage::logException($e);

@@ -280,13 +280,18 @@ class Amazon_Payments_Model_Type_Checkout extends Mage_Checkout_Model_Type_Onepa
     {
         $quote = $this->getQuote();
 
-        $this->_getApi()->setOrderReferenceDetails(
-            $orderReferenceId,
-            $quote->getBaseGrandTotal(),
-            $quote->getBaseCurrencyCode(),
-            $quote->getIncrementId(),
-            $this->_getApi()->getConfig()->getStoreName()
-        );
+        $orderReferenceDetails = $this->_getApi()->getOrderReferenceDetails($orderReferenceId);
+        $state = $orderReferenceDetails->getOrderReferenceStatus()->getState();
+
+        if ($state == 'Draft') {
+            $this->_getApi()->setOrderReferenceDetails(
+                $orderReferenceId,
+                $quote->getBaseGrandTotal(),
+                $quote->getBaseCurrencyCode(),
+                $quote->getIncrementId(),
+                $this->_getApi()->getConfig()->getStoreName()
+            );
+        }
 
         $this->_getApi()->confirmOrderReference($orderReferenceId);
     }

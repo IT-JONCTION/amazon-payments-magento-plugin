@@ -8,6 +8,7 @@
  * @license     http://opensource.org/licenses/Apache-2.0  Apache License, Version 2.0
  */
 
+$orderReference = $this->getRequest()->getParam('order_reference');
 ?>
 
 <div id="amazon-checkout">
@@ -494,9 +495,11 @@ var amazonBillingAgreementId;
 
 var addressBookOpts = {
     sellerId: '<?php echo $this->getSellerId(); ?>',
+    <?php if (!$orderReference) : ?>
     onOrderReferenceCreate: function(orderReference) {
         amazonPaymentsMageCheckout.amazonOrderReferenceId = orderReference.getAmazonOrderReferenceId();
     },
+    <?php endif; ?>
     onAddressSelect: function(orderReference) {
         amazonPaymentsMageCheckout.setAddress();
         amazonPaymentsMageCheckout.hasPayment = false;
@@ -546,6 +549,9 @@ function loadAmazonWallet() {
         <?php if ($this->isTokenEnabled()) : ?>
         amazonBillingAgreementId: amazonBillingAgreementId,
         <?php endif; ?>
+        <?php if ($orderReference) : ?>
+        amazonOrderReferenceId: '<?php echo $orderReference; ?>',
+        <?php endif; ?>
         sellerId: '<?php echo $this->getSellerId(); ?>',
         design: {
             designMode: 'responsive',
@@ -555,6 +561,13 @@ function loadAmazonWallet() {
             loadAmazonConsent();
             <?php endif; ?>
             amazonPaymentsMageCheckout.hasPayment = true;
+
+            <?php if ($orderReference) : ?>
+                if (!amazonPaymentsMageCheckout.amazonOrderReferenceId) {
+                    amazonPaymentsMageCheckout.amazonOrderReferenceId = '<?php echo $orderReference; ?>';
+                    amazonPaymentsMageCheckout.setReview();
+                }
+            <?php endif; ?>
         },
         onError: function(error) {
             console.log(error.getErrorMessage());

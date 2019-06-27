@@ -16,9 +16,14 @@ class Amazon_Payments_SimplepathController extends Mage_Core_Controller_Front_Ac
      */
     public function indexAction()
     {
-        $url = parse_url(Amazon_Payments_Model_SimplePath::API_ENDPOINT_DOWNLOAD_KEYS);
+        $originUrl = 'https://sellercentral.amazon.com';
 
-        header('Access-Control-Allow-Origin: https://' . $url['host']);
+        $origin = Mage::app()->getRequest()->getHeader('Origin');
+        if (substr($origin, -11) === '.amazon.com') {
+            $originUrl = $origin;
+        }
+
+        header('Access-Control-Allow-Origin: ' . $originUrl);
         header('Access-Control-Allow-Methods: GET, POST');
         header('Access-Control-Allow-Headers: Content-Type');
 

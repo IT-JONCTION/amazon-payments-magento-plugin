@@ -495,7 +495,9 @@ var amazonBillingAgreementId;
 
 var addressBookOpts = {
     sellerId: '<?php echo $this->getSellerId(); ?>',
-    <?php if (!$orderReference) : ?>
+    <?php if ($orderReference) : ?>
+    displayMode: 'Read',
+    <?php else : ?>
     onOrderReferenceCreate: function(orderReference) {
         amazonPaymentsMageCheckout.amazonOrderReferenceId = orderReference.getAmazonOrderReferenceId();
     },

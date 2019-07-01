@@ -567,6 +567,47 @@
                   </restricted_ips>
               </fields>
           </ap_developer>
+          <ap_alexa type="group" translate="label">
+              <label>Alexa Order Delivery Notifications</label>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>0</show_in_store>
+              <sort_order>50</sort_order>
+              <fields>
+                  <alexa_active translate="label">
+                      <label>Enable Alexa Order Delivery Notifications</label>
+                      <frontend_type>select</frontend_type>
+                      <source_model>adminhtml/system_config_source_yesno</source_model>
+                      <comment><![CDATA[<a href="" target="_blank">Refer here for more information on Alexa Order Delivery Notifications</a>]]></comment>
+                      <sort_order>10</sort_order>
+                      <show_in_default>1</show_in_default>
+                      <show_in_website>1</show_in_website>
+                      <show_in_store>0</show_in_store>
+                      <config_path>payment/amazon_payments/alexa_active</config_path>
+                  </alexa_active>
+                  <alexa_public_key_id translate="label">
+                      <label>Public Key ID</label>
+                      <comment><![CDATA[Provided by Amazon Pay after submitting public key.]]></comment>
+                      <frontend_type>text</frontend_type>
+                      <sort_order>20</sort_order>
+                      <show_in_default>1</show_in_default>
+                      <show_in_website>1</show_in_website>
+                      <show_in_store>0</show_in_store>
+                      <config_path>payment/amazon_payments/alexa_public_key_id</config_path>
+                  </alexa_public_key_id>
+                  <alexa_private_key translate="label">
+                      <label>Private Key</label>
+                      <frontend_type>textarea</frontend_type>
+                      <backend_model>amazon_payments/system_config_backend_alexaprivatekey</backend_model>
+                      <comment><model>amazon_payments/system_config_backend_alexacomment</model></comment>
+                      <sort_order>30</sort_order>
+                      <show_in_default>1</show_in_default>
+                      <show_in_website>1</show_in_website>
+                      <show_in_store>0</show_in_store>
+                      <config_path>payment/amazon_payments/alexa_private_key</config_path>
+                  </alexa_private_key>
+              </fields>
+          </ap_alexa>
 
           </fields>
         </amazon_payments>

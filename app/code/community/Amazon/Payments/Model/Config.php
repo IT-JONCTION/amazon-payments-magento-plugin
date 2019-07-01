@@ -45,6 +45,11 @@ class Amazon_Payments_Model_Config
     const CONFIG_XML_PATH_LANGUAGE       = 'amazon_login/settings/language';
     const CONFIG_XML_PATH_LOGIN_ENABLED  = 'amazon_login/settings/enabled';
 
+    const CONFIG_XML_PATH_ALEXA_ENABLED    = 'payment/amazon_payments/alexa_active';
+    const CONFIG_XML_PATH_ALEXA_PUBKEY_ID  = 'payment/amazon_payments/alexa_public_key_id';
+    const CONFIG_XML_PATH_ALEXA_PUBKEY     = 'payment/amazon_payments/alexa_public_key';
+    const CONFIG_XML_PATH_ALEXA_PRIVKEY    = 'payment/amazon_payments/alexa_private_key';
+
     /**
      * Retrieve config value for store by path
      *
@@ -397,6 +402,39 @@ class Amazon_Payments_Model_Config
     {
         $states = (string) $this->_getStoreConfig(self::CONFIG_XML_PATH_BLOCK_STATES, $store);
         return array_map('trim', explode(',', $states));
+    }
+
+    /**
+     * Is Alexa Delivery Notification enabled?
+     *
+     * @param   store $store
+     * @return  bool
+     */
+    public function isAlexaEnabled($store = null)
+    {
+        return ($this->_getStoreConfig(self::CONFIG_XML_PATH_ALEXA_ENABLED, $store));
+    }
+
+    /**
+     * Return Alexa Public Key ID
+     *
+     * @param   store $store
+     * @return  string
+     */
+    public function getAlexaPublicKeyId($store = null)
+    {
+        return $this->_getStoreConfig(self::CONFIG_XML_PATH_ALEXA_PUBKEY_ID, $store);
+    }
+
+    /**
+     * Return Alexa Private Key
+     *
+     * @param   store $store
+     * @return  string
+     */
+    public function getAlexaPrivateKey($store = null)
+    {
+        return trim(Mage::helper('core')->decrypt($this->_getStoreConfig(self::CONFIG_XML_PATH_ALEXA_PRIVKEY, $store)));
     }
 
 }

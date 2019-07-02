@@ -43,6 +43,14 @@ class Amazon_Payments_CompleteController extends Mage_Core_Controller_Front_Acti
                 );
                 break;
             case 'Abandoned':
+                Mage::getSingleton('core/session')->addError(
+                    __('Something\'s wrong with your payment method. To place your order, try another.')
+                );
+                $payment = Mage::getSingleton('checkout/session')->getPayment();
+                $query = 'order_reference=' . $payment['additional_information']['order_reference'];
+                $this->_redirect('checkout/amazon_payments', array('_query' => $query));
+                return;
+                break;
             default:
                 Mage::getSingleton('core/session')->addError(
                     __('Something\'s wrong with your payment method. To place your order, try another.')

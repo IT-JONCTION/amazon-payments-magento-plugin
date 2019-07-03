@@ -109,7 +109,7 @@ class Amazon_Payments_Model_SimplePath
 
           // URL decode values
           foreach ($payload as $key => $value) {
-              $payload->$key = urldecode($value);
+              $payload->$key = rawurldecode($value);
           }
 
           // Retrieve Amazon public key to verify signature

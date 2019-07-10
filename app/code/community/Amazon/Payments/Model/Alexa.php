@@ -91,7 +91,7 @@ class Amazon_Payments_Model_Alexa
                         $response->reasonCode . ': ' . $response->message;
 
                     if (strpos($response->message, 'missing key') !== false) {
-                        $errorMessage = 'Please add the missing Private key value in the Alexa delivery notification settings in Amazon Pay.';
+                        $errorMessage = 'Please add the missing Private/Public key value in the Alexa Delivery Notification settings in Amazon Pay to enable Delivery Notifications.';
                     }
 
                     Mage::getSingleton('adminhtml/session')->addNotice($errorMessage);

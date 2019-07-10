@@ -39,8 +39,8 @@ class Amazon_Payments_Adminhtml_Amazon_AlexaController extends Mage_Adminhtml_Co
 
         $downloadUrl = $this->getUrl('adminhtml/amazon_alexa/download');
         Mage::getSingleton('adminhtml/session')->addSuccess(
-            $this->__('Your Amazon Pay public/private keypair has been generated for Alexa Delivery Notification. ' .
-            '<a href="%s">Download Public Key</a>.', $downloadUrl)
+            $this->__('Your Amazon Pay public/private keypair has been generated for Alexa Delivery Notification.'
+            //'<a href="%s">Download Public Key</a>.', $downloadUrl)
         );
         $this->_redirect('adminhtml/system_config/edit/section/payment');
     }

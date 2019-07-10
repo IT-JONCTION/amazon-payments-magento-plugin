@@ -8,7 +8,7 @@
  * @license     http://opensource.org/licenses/Apache-2.0  Apache License, Version 2.0
  */
 
-class Amazon_Payments_Model_System_Config_Backend_Alexacomment extends Mage_Core_Model_Config_Data
+class Amazon_Payments_Model_System_Config_Backend_Alexaemailcomment extends Mage_Core_Model_Config_Data
 {
     /**
      * Return dynamic help/comment text
@@ -16,8 +16,6 @@ class Amazon_Payments_Model_System_Config_Backend_Alexacomment extends Mage_Core
     public function getCommentText(Mage_Core_Model_Config_Element $element, $currentValue)
     {
         $helper = Mage::helper('adminhtml');
-        $generateUrl = $helper->getUrl('adminhtml/amazon_alexa/generate');
-        $downloadUrl = $helper->getUrl('adminhtml/amazon_alexa/download');
 
         $storeId = Mage::getSingleton('adminhtml/config_data')->getStore();
         $pubkeyid  = Mage::getStoreConfig(Amazon_Payments_Model_Config::CONFIG_XML_PATH_ALEXA_PUBKEY_ID, $storeId);
@@ -29,11 +27,13 @@ class Amazon_Payments_Model_System_Config_Backend_Alexacomment extends Mage_Core
                 Mage::getModel('amazon_payments/alexa')->generateKeys();
                 $pubkey = Mage::getStoreConfig(Amazon_Payments_Model_Config::CONFIG_XML_PATH_ALEXA_PUBKEY, $storeId);
             }
-            $merchantId = Mage::getStoreConfig(Amazon_Payments_Model_Config::CONFIG_XML_PATH_SELLER_ID, $storeId);
-            $subject = rawurlencode('Request for Amazon Pay Public Key ID for ' . $merchantId);
-            $body = rawurlencode("Merchant ID: $merchantId\n\nPublic Key:\n\n$pubkey");
-            return __('Please <a href="%s">contact</a> Amazon Pay to receive the Public Key ID.',
-                'mailto:Amazon-pay-delivery-notifications@amazon.com?subject=' . $subject . '&body=' . $body);
+            if ($privkey) {
+                $merchantId = Mage::getStoreConfig(Amazon_Payments_Model_Config::CONFIG_XML_PATH_SELLER_ID, $storeId);
+                $subject = rawurlencode('Request for Amazon Pay Public Key ID for ' . $merchantId);
+                $body = rawurlencode("Merchant ID: $merchantId\n\nPublic Key:\n\n$pubkey");
+                return __('Please <a href="%s">contact</a> Amazon Pay to receive the Public Key ID.',
+                    'mailto:Amazon-pay-delivery-notifications@amazon.com?subject=' . $subject . '&body=' . $body);
+            }
         }
     }
 }

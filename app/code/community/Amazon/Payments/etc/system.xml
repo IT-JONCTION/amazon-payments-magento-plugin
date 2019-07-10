@@ -587,7 +587,7 @@
                   </alexa_active>
                   <alexa_public_key_id translate="label">
                       <label>Public Key ID</label>
-                      <comment><model>amazon_payments/system_config_backend_alexacomment</model></comment>
+                      <comment><model>amazon_payments/system_config_backend_alexaemailcomment</model></comment>
                       <frontend_type>text</frontend_type>
                       <sort_order>20</sort_order>
                       <show_in_default>1</show_in_default>
@@ -599,6 +599,7 @@
                       <label>Private Key</label>
                       <frontend_type>textarea</frontend_type>
                       <backend_model>amazon_payments/system_config_backend_alexaprivatekey</backend_model>
+                      <comment><model>amazon_payments/system_config_backend_alexakeycomment</model></comment>
                       <sort_order>30</sort_order>
                       <show_in_default>1</show_in_default>
                       <show_in_website>1</show_in_website>

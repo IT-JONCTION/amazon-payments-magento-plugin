@@ -30,7 +30,7 @@ class Amazon_Payments_Model_System_Config_Backend_Alexacomment extends Mage_Core
                 $pubkey = Mage::getStoreConfig(Amazon_Payments_Model_Config::CONFIG_XML_PATH_ALEXA_PUBKEY, $storeId);
             }
             $merchantId = Mage::getStoreConfig(Amazon_Payments_Model_Config::CONFIG_XML_PATH_SELLER_ID, $storeId);
-            $subject = rawurlencode('Request for Amazon Pay Private Key for ' . $merchantId);
+            $subject = rawurlencode('Request for Amazon Pay Public Key ID for ' . $merchantId);
             $body = rawurlencode("Merchant ID: $merchantId\n\nPublic Key:\n\n$pubkey");
             return __('Please <a href="%s">contact</a> Amazon Pay to receive the Public Key ID.',
                 'mailto:Amazon-pay-delivery-notifications@amazon.com?subject=' . $subject . '&body=' . $body);

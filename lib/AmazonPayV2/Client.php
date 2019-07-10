@@ -373,7 +373,13 @@ class AmazonPayV2_Client implements AmazonPayV2_ClientInterface
     */
     public function createSignature($http_request_method, $request_uri, $request_parameters, $pre_signed_headers, $request_payload, $timeStamp)
     {
-        $rsa = new Crypt_RSA();
+        if (class_exists('Crypt_RSA', false)) {
+            $rsa = new Crypt_RSA();
+        } else {
+            // For newer versions of Magento
+            $rsa = new \phpseclib\Crypt\RSA();
+        }
+
         $rsa->setHash(self::HASH_ALGORITHM);
         $rsa->setMGFHash(self::HASH_ALGORITHM);
         $rsa->setSaltLength(20);

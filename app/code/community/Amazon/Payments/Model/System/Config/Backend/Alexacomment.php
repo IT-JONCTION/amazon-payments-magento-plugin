@@ -20,14 +20,20 @@ class Amazon_Payments_Model_System_Config_Backend_Alexacomment extends Mage_Core
         $downloadUrl = $helper->getUrl('adminhtml/amazon_alexa/download');
 
         $storeId = Mage::getSingleton('adminhtml/config_data')->getStore();
+        $pubkeyid  = Mage::getStoreConfig(Amazon_Payments_Model_Config::CONFIG_XML_PATH_ALEXA_PUBKEY_ID, $storeId);
         $pubkey  = Mage::getStoreConfig(Amazon_Payments_Model_Config::CONFIG_XML_PATH_ALEXA_PUBKEY, $storeId);
         $privkey = Mage::getStoreConfig(Amazon_Payments_Model_Config::CONFIG_XML_PATH_ALEXA_PRIVKEY, $storeId);
 
-        if (!$privkey) {
-            return '<a href="' . $generateUrl . '">' . $helper->__('Generate a new public/private key pair for Amazon Pay') . '</a>';
-        }
-        else if ($pubkey) {
-            return '<a href="' . $downloadUrl . '">' . $helper->__('Download Public Key') . '</a>';
+        if (!$pubkeyid) {
+            if (!$pubkey) {
+                Mage::getModel('amazon_payments/alexa')->generateKeys();
+                $pubkey = Mage::getStoreConfig(Amazon_Payments_Model_Config::CONFIG_XML_PATH_ALEXA_PUBKEY, $storeId);
+            }
+            $merchantId = Mage::getStoreConfig(Amazon_Payments_Model_Config::CONFIG_XML_PATH_SELLER_ID, $storeId);
+            $subject = rawurlencode('Request for Amazon Pay Private Key for ' . $merchantId);
+            $body = rawurlencode("Merchant ID: $merchantId\n\nPublic Key:\n\n$pubkey");
+            return __('Please <a href="%s">contact</a> Amazon Pay to receive the Public Key ID.',
+                'mailto:Amazon-pay-delivery-notifications@amazon.com?subject=' . $subject . '&body=' . $body);
         }
     }
 }

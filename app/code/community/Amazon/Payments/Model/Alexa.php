@@ -74,7 +74,7 @@ class Amazon_Payments_Model_Alexa
 
         if (!empty($result['status'])) {
             if ($result['status'] == '200') {
-                $comment = Mage::helper('core')->__('Alexa Delivery Tracker saved for carrier %s tracking number %s.',
+                $comment = Mage::helper('core')->__('Amazon Pay has received shipping tracking information for carrier %s and tracking number %s.',
                     $carrierCode, $trackerNumber);
 
                 $shipment->addComment($comment);
@@ -89,7 +89,12 @@ class Amazon_Payments_Model_Alexa
                     $response = json_decode($result['response']);
                     $errorMessage = 'Alexa Delivery Tracker returned a ' . $result['status'] . ' error: ' . "\n" .
                         $response->reasonCode . ': ' . $response->message;
-                    Mage::getSingleton('adminhtml/session')->addError($errorMessage);
+
+                    if (strpos($response->message, 'missing key') !== false) {
+                        $errorMessage = 'Please add the missing Private key value in the Alexa delivery notification settings in Amazon Pay.';
+                    }
+
+                    Mage::getSingleton('adminhtml/session')->addNotice($errorMessage);
                 }
             }
         }

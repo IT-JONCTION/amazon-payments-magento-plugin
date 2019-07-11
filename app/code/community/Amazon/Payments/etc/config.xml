@@ -138,6 +138,14 @@
                     </amazon_payments_observer>
                 </observers>
             </sales_order_save_commit_after>
+            <sales_order_shipment_save_after>
+                <observers>
+                    <amazon_payments_observer>
+                        <class>Amazon_Payments_Model_Observer_Shipment</class>
+                        <method>alexaDeliveryNotification</method>
+                    </amazon_payments_observer>
+                </observers>
+            </sales_order_shipment_save_after>
         </events>
     </adminhtml>
     <frontend>

@@ -24,6 +24,9 @@ class Amazon_Payments_Model_Customer extends Mage_Customer_Model_Customer
         $amazonProfile = $this->getAmazonProfile($token);
 
         if ($amazonProfile && isset($amazonProfile['user_id']) && isset($amazonProfile['email'])) {
+            $customerSession = Mage::getSingleton('customer/session');
+            $checkoutSession = Mage::getSingleton('checkout/session');
+
             // Load Amazon Login association
             $row = Mage::getModel('amazon_payments/login')->load($amazonProfile['user_id'], 'amazon_uid');
 
@@ -35,12 +38,17 @@ class Amazon_Payments_Model_Customer extends Mage_Customer_Model_Customer
                 $this->setWebsiteId(Mage::app()->getWebsite()->getId())->loadByEmail($amazonProfile['email']);
             }
 
-            Mage::getSingleton('customer/session')->setAmazonProfile($amazonProfile);
+            $customerSession->setAmazonProfile($amazonProfile);
+
+            // Set quote customer ID for 1.9.4.2 security fix
+            if (!$checkoutSession->getQuote()->getCustomerId()) {
+                $checkoutSession->getQuote()->setCustomerId($customerSession->getId())->save();
+            }
 
             // If Magento customer account exists and there is no association, then the Magento account
             // must be verified, as Amazon does not verify email addresses.
             if (!$row->getLoginId() && $this->getId()) {
-                Mage::getSingleton('checkout/session')->setAmazonAccessTokenVerify($token);
+                $checkoutSession->setAmazonAccessTokenVerify($token);
                 $this->isRedirect = true;
                 return $this;
             }
@@ -50,10 +58,10 @@ class Amazon_Payments_Model_Customer extends Mage_Customer_Model_Customer
                 if (!$this->getId()) {
                     $this->createCustomer($amazonProfile);
                 }
-                Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($this);
+                $customerSession->setCustomerAsLoggedIn($this);
 
                 // Use Pay with Amazon for checkout (if Amazon_Payments enabled)
-                Mage::getSingleton('checkout/session')->setAmazonAccessToken($token);
+                $checkoutSession->setAmazonAccessToken($token);
             }
 
 

@@ -67,3 +67,5 @@
 "Save API responses to Magento log", "Save API responses to Magento log"
 "Restrict by IP", "Restrict by IP"
 "Display to only whitelisted IPs found in Developer -> Developer Client Restrictions", "Display to only whitelisted IPs found in Developer -> Developer Client Restrictions"
+"Something's wrong with your payment method. To place your order, try another.","Something's wrong with your payment method. To place your order, try another."
+"There was a problem with your payment. Your order hasn't been placed, and you haven't been charged.","There was a problem with your payment. Your order hasn't been placed, and you haven't been charged."

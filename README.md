@@ -21,7 +21,7 @@ or [Learn More about Amazon Pay](https://pay.amazon.com/sp/magento)
 * Using Manual Installation:
     * Click the Download Zip button and save to your local machine
     * Transfer the zip file to your Magento webserver
-    * Unpack the archive in the root directory of your Magento instance
+    * Unpack the archive in the root directory of your Magento instance (this consists of copying the app, lib, and skin folders within the downloaded plugin zip into the root Magento directory)
     * Flush your Magento caches
         * In the admin page for your Magento instance, navigate to System->Cache Management
         * Click the 'Flush Magento Cache'
@@ -47,6 +47,122 @@ or [Learn More about Amazon Pay](https://pay.amazon.com/sp/magento)
    * If you don't have SSL enabled, copy and paste the encrypted keys string and the end of the registration flow into the configuration and it will automatically set up your keys as well.
 
 ## Release Notes
+### v1.6.0 Release
+## Enhancements
+- Amazon Pay is now SCA/PSD2 compliant
+- Support for new merchant on-boarding platform for Amazon Pay merchants
+
+## Issues Resolved
+- Fix for the Magento [Security Patch SUPEE-11555](https://devdocs.magento.com/guides/m1x/ce19-ee114/ce1.9_release-notes.html?_ga=2.59452335.340946191.1561493917-546575631.1561493917#ce19-1942) release, for Amazon Pay
+
+### v1.5.0 Release
+## Enhancements
+- Amazon Pay is now available as a payment option in the checkout step
+- Improved error handling while disabling Amazon Pay extension
+- Improved declined authorization handling when facing the AmazonRejected decline
+- Improved the way merchants can limit shipping to certain states
+- Added a callout for incompatbility of Amazon Pay with the Suhosin extension
+
+## Issues Resolved
+- Put email templates in correct folders
+- Add in async decline hard template for en_GB which seemed to be missing
+- Improves modman
+- Added support for Magento 1.8
+- Fixed an issue in OnePageCheckout that prevented the shipping info from showing
+- Fixed an issue with the redirect after account verification when an existing Magento account with the same email already exists
+- Trim config values during retrieval to prevent leading/trailing whitespaces creating issues
+- Remove duplicate discount code appearing during checkout
+- Fixed the notice that appears when enabling Amazon Pay on Website/Store view by loading value from parent scope if field set as inherited
+- Rename config path for Amazon Pay as per Magento standard for payment options
+- Fixed an issue where shopping cart rules were incorrectly implemented
+- Fixed an issue where Amazon Pay ignored the default custoemr address
+- Fixed the redirect on verify account to implement HTTPS
+- Fixed an edge-case when a store is undefined at the time of order placements
+- Fixed an issue where a customer could place an order from a non-allowed country
+- Fixed an issue with responsive CSS styles which caused widgets to overlap.
+- Improves the way the Amazon Pay button is rendered on the final step of checkout
+- Fixed the getAmazonName method, to help in resolving #328
+
+### v1.4.5 Release
+## Enhancements
+- #337 Replaced deprecated mcrypt_cbc with openssl_decrypt
+- #356 Adding standard Magento files to repository
+
+## Issues Resolved
+- #322 Fixes issue with FireCheckout where order total is doubled
+- #336 Fixes compatibility issues with PHP 5.6
+- #354 Fixes syntax error
+- #358 Fixes issue with discount codes in Standalone checkout
+
+### v1.4.4 release
+## Enhancements
+ *  #294 Feature: Ability to add Coupon/Discount Code Field on Amazon Standalone Checkout
+ *   #61 Enable tokenized payments
+ *   #292 Change Widgets.js loading to async
+
+## Pull Requests Merged
+ * Fix outdated paths in modman file #307
+ * Update Modman #270 
+
+## Issues Resolved
+ *   #281 ShipStation Phone Number Issue
+ *   #274 Problem using onestepcheckout
+ *   #287 Customer verify redirect to empty cart
+ *   #291 Fix check for enabled amazon login
+ *   #295 Amazon Payments Diagnostics tool throwing exception
+ *   #284 JQuery Conflict Render Unusable
+ *   #261 Script Loading Issue
+ *   #286 Logout Error
+ *   #293 JS failing to Serialize form during SaveOrder function call
+ *   #280 Double Redirect on Cart Page
+ *   #271 Add secure URL from config files
+ *   #264 Fix broken admin in Magento 1.6
+ *   #272 Add Disable Login with Amazon functionality
+ *   #255 Disable shipping widget during decline flow
+ *   #263 Limit shipping to supported countries
+
+
+### v1.4.2 Bug Fix  
+ * #260 Backend not loading after installation of new module
+
+### v1.4.1 Widget Optimization and Bug Fixes
+#### Pull Requests Merged  
+ * #189 Making credential validation region aware. Addressing #185  
+ * #191 EU  
+ * #250 Fixed getFormParams() to work with DB prefixes  
+ * #251 Update modman file for simplepath  
+ * #254 removed buyer multi-language parameter and eu regions form the config  
+ * #259 1.4.1 Release
+
+#### Issues Resolved  
+ * #159 Billing address not used  
+ * #160 Placement of Login Button on Account Page  
+ * #179 Localize admin links to amazon.com  
+ * #190 Add hard decline email template for EU  
+ * #199 Amazon buyer clicking cancel on consent form is sent to blank page  
+ * #204 Add Support For SoftDescriptor  
+ * #210 Add Email Store Name to all views  
+ * #212 Add notification for delay for Pay with Amazon button on product page  
+ * #214 Add shipping method validation  
+ * #215 Center Button in Minicart  
+ * #216 Wrong redirect URLs being shown  
+ * #217 Add EU support to diagnostics  
+ * #219 Default Scope cannot be empty / Validation only on default scope  
+ * #216 Fix popup redirect URLs (mod_rewrite and store id detection)  
+ * #220 cURL using IPv6  
+ * #223 Magento EE feature "Gift wrapping" not supported  
+ * #223 Fix Enterprise-only gift wrapping block  
+ * #230 Amazon Payments ignoring the shipment rules and restrictions (using productMatrix Shipping Extension)  
+ * #232 PHP 5.6 : iconv_set_encoding  
+ * #233 Login: Email Confirmation Required Bug  
+ * #236 1st checkout step button does not obey the login experience config bug Fix now  
+ * #241 Inadvertently calling indexAction on redirect during error condition  
+ * #243 Store view level does not allow to configure credentials  
+ * #244 Widget Optimization on Standalone checkout  
+ * #248 IWD with amazon payments  
+ * #253 Use default store id  
+ * #238 Issue changing Client ID & Client Secret in multistore magento 1.9.1.1 
+
 ### v1.4.0 Automated key exchange, new streamlined registration, condensed UI
 #### Enhancements:
    * Enabled automated key exchange between Amazon and Magento for merchants

@@ -289,6 +289,7 @@ class Amazon_Payments_Model_PaymentMethod extends Mage_Payment_Model_Method_Abst
 
                 // specific error handling for InvalidPaymentMethod decline scenario
                 if($status->getReasonCode() == 'InvalidPaymentMethod') {
+                        Mage::getSingleton('checkout/session')->setIsAmazonRedirect(true);
                         Mage::throwException("There was a problem with your payment. Please select another payment method from the Amazon Wallet and try again.");
                         break;
                 }
@@ -328,6 +329,10 @@ class Amazon_Payments_Model_PaymentMethod extends Mage_Payment_Model_Method_Abst
         $billingAgreementId = $payment->getAdditionalInformation('billing_agreement_id'); // token payment. orderReferenceId will be the same.
 
         $orderConfirmed = false;
+
+        if ($payment->getAdditionalInformation('is_sca')) {
+            $orderConfirmed = true;
+        }
 
         // User did not agree to billing agreement; create order reference ID from billing agreement ID
         if ($billingAgreementId && !$adminBillingAgreementId && !$payment->getAdditionalInformation('billing_agreement_consent')) {

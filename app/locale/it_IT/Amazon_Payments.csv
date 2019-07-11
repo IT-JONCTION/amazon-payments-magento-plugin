@@ -67,3 +67,5 @@
 "Save API responses to Magento log", "Salva risposte API nel registro Magento"
 "Restrict by IP", "Applica restrizioni per IP"
 "Display to only whitelisted IPs found in Developer -> Developer Client Restrictions", "Visualizza solo per gli IP consentiti in Sviluppatore -> Restrizioni client sviluppatori"
+"Something's wrong with your payment method. To place your order, try another.","Si è verificato un problema con il metodo di pagamento. Per effettuare l'ordine, prova con un altro metodo di pagamento."
+"There was a problem with your payment. Your order hasn't been placed, and you haven't been charged.","Si è verificato un problema con il pagamento. L'ordine non è stato effettuato, pertanto non ti è stato addebitato alcun importo."

@@ -1,11 +1,11 @@
 <?php
-//namespace AmazonPayV2;
+namespace AmazonPayV2;
 
 /* Class HttpCurl
  * Handles Curl POST function for all requests
  */
 
-class AmazonPayV2_HttpCurl
+class HttpCurl
 {
     const MAX_ERROR_RETRY = 3;
 
@@ -20,7 +20,7 @@ class AmazonPayV2_HttpCurl
 
     private function commonCurlParams($url)
     {
-        $ch = curl_init();
+     	$ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_PORT, 443);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
@@ -131,7 +131,7 @@ class AmazonPayV2_HttpCurl
             usleep($delay);
         } else {
             throw new \Exception('Error Code: '. $response['status'] . ' - Maximum number of retry attempts - '
-                . $retries . " reached\n" . $response['response'] . "\n");
+              . $retries . " reached\n" . $response['response'] . "\n");
         }
     }
 

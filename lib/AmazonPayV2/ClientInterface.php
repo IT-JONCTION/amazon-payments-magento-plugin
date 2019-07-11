@@ -1,9 +1,9 @@
 <?php
-//namespace AmazonPayV2;
+namespace AmazonPayV2;
 
 /* Interface class to showcase the public API methods for Amazon Pay */
 
-interface AmazonPayV2_ClientInterface
+interface ClientInterface
 {
 
     // ----------- Comprehensive SDK API calls -----------
@@ -62,20 +62,20 @@ interface AmazonPayV2_ClientInterface
     public function apiPost($urlFragment, $payload, $authToken = null);
 
 
-    /* getPostSignedHeaders convenience – Takes values for canonical request, creates a signature and
-     * returns an array of headers to be sent
-     * @param $http_request_method [String]
-     * @param $request_uri [String]
+    /* getPostSignedHeaders convenience – Takes values for canonical request, creates a signature and  
+     * returns an array of headers to be sent 
+     * @param $http_request_method [String] 
+     * @param $request_uri [String] 
      * @param $request_parameters [Array()]
      * @param $request_payload [String]
      */
     public function getPostSignedHeaders($http_request_method, $request_uri, $request_parameters, $request_payload);
 
 
-    /* createSignature convenience – Takes values for canonical request sorts and parses it and
-     * returns a signature for the request being sent
-     * @param $http_request_method [String]
-     * @param $request_uri [String]
+    /* createSignature convenience – Takes values for canonical request sorts and parses it and  
+     * returns a signature for the request being sent 
+     * @param $http_request_method [String] 
+     * @param $request_uri [String] 
      * @param $request_parameters [Array()]
      * @param $pre_signed_headers [Array()]
      * @param $request_payload [String]
@@ -85,3 +85,4 @@ interface AmazonPayV2_ClientInterface
 
 }
 
+?>

@@ -21,7 +21,7 @@ or [Learn More about Amazon Pay](https://pay.amazon.com/sp/magento)
 * Using Manual Installation:
     * Click the Download Zip button and save to your local machine
     * Transfer the zip file to your Magento webserver
-    * Unpack the archive in the root directory of your Magento instance
+    * Unpack the archive in the root directory of your Magento instance (this consists of copying the app, lib, and skin folders within the downloaded plugin zip into the root Magento directory)
     * Flush your Magento caches
         * In the admin page for your Magento instance, navigate to System->Cache Management
         * Click the 'Flush Magento Cache'

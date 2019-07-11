@@ -1,11 +1,11 @@
 <?php
-namespace AmazonPayV2;
+//namespace AmazonPayV2;
 
 /* Class HttpCurl
  * Handles Curl POST function for all requests
  */
 
-class HttpCurl
+class AmazonPayV2_HttpCurl
 {
     const MAX_ERROR_RETRY = 3;
 

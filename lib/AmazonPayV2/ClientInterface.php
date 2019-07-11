@@ -1,9 +1,9 @@
 <?php
-namespace AmazonPayV2;
+//namespace AmazonPayV2;
 
 /* Interface class to showcase the public API methods for Amazon Pay */
 
-interface ClientInterface
+interface AmazonPayV2_ClientInterface
 {
 
     // ----------- Comprehensive SDK API calls -----------

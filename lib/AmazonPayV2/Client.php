@@ -1,12 +1,12 @@
 <?php
-    namespace AmazonPayV2;
-
-    use phpseclib\Crypt\RSA;
+/**
+ * AmazonPayV2 SDK for Magento 1
+ */
 
     require_once 'ClientInterface.php';
     require_once 'HttpCurl.php';
  
-    class Client implements ClientInterface
+    class AmazonPayV2_Client implements AmazonPayV2_ClientInterface
     {
         const SDK_VERSION = '4.1.3';
         const HASH_ALGORITHM = 'sha256';
@@ -28,6 +28,13 @@
             'jp' => 'jp');
 
         public function __construct($config = null) {
+
+            // include Magento's phpseclib
+            if (!class_exists('Crypt_RSA')) {
+                set_include_path(get_include_path() . PATH_SEPARATOR . Mage::getBaseDir('lib') . DIRECTORY_SEPARATOR  . 'phpseclib');
+                require_once('Crypt/RSA.php');
+            }
+
             if (isset($config)) {
 
                 if (!is_array($config)) {
@@ -368,7 +375,13 @@
         */
         public function createSignature($http_request_method, $request_uri, $request_parameters, $pre_signed_headers, $request_payload, $timeStamp)
         {
-            $rsa = new RSA();
+            if (class_exists('Crypt_RSA', false)) {
+                $rsa = new Crypt_RSA();
+            } else {
+                // For newer versions of Magento
+                $rsa = new \phpseclib\Crypt\RSA();
+            }
+
             $rsa->setHash(self::HASH_ALGORITHM);
             $rsa->setMGFHash(self::HASH_ALGORITHM);
             $rsa->setSaltLength(20);
@@ -425,7 +438,7 @@
                 $postSignedHeaders[] = 'x-amz-pay-authtoken:' . $authToken;
             }
 
-            $httpCurlRequest = new HttpCurl();
+            $httpCurlRequest = new AmazonPayV2_HttpCurl();
             $response = $httpCurlRequest->invokePost($url, $payload, $postSignedHeaders);
             return $response;
         }

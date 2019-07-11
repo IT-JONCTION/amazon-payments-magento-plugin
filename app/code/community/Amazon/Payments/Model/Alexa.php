@@ -40,7 +40,7 @@ class Amazon_Payments_Model_Alexa
             'public_key_id' => $this->getConfig()->getAlexaPublicKeyId(),
             'private_key'   => $this->getConfig()->getAlexaPrivateKey(),
             'sandbox'       => false, // deliveryTrackers not available in sandbox mode
-            'region'        => $this->getRegion()
+            'region'        => $this->getConfig()->getRegion()
         );
 
         $client = new AmazonPayV2_Client($amazonpay_config);
@@ -127,22 +127,6 @@ class Amazon_Payments_Model_Alexa
     private function getConfig()
     {
         return Mage::getSingleton('amazon_payments/config');
-    }
-
-    /**
-     * Return region
-     */
-    private function getRegion()
-    {
-        $region = $this->getConfig()->getRegion();
-        switch ($region) {
-            case 'uk':
-            case 'de':
-                return 'eu';
-                break;
-            default:
-                return $region;
-        }
     }
 
     /**

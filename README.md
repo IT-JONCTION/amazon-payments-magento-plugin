@@ -28,8 +28,15 @@ or [Learn More about Amazon Pay](https://pay.amazon.com/sp/magento)
         * More information on Magento Cache Management [here](http://www.magentocommerce.com/knowledge-base/entry/cache-storage-management)
     * Log out of the admin page and then log back in to ensure activation of the module
 
-### Uninstall/Disable
+### Uninstall/Disable  
+#### Uninstalling via Magento Connect Manager
+* Log into your magento administration panel
+* Click on Magento Connect -> Magento Connect Manager
+* Click the dropdown menu besides the extension you want to uninstall and choose "Uninstall".  Then click "Commit Changes"
 
+**Note:** If 'uninstall' is not provided for Amazon Pay extension, please manually remove the Amazon Pay folder from your server.
+
+#### Disabling manually 
    * From the command line edit the files: 
       * `<magento_root>/app/etc/modules/Amazon_Login.xml` (in versions <= 1.3.1)
       * `<magento_root>/app/etc/modules/Amazon_Payments.xml`

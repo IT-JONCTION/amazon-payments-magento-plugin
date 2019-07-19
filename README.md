@@ -54,7 +54,7 @@ or [Learn More about Amazon Pay](https://pay.amazon.com/sp/magento)
    * If you don't have SSL enabled, copy and paste the encrypted keys string and the end of the registration flow into the configuration and it will automatically set up your keys as well.
 
 ## Release Notes
-### v.1.7.0 Release
+### v.1.7.1 Release
 ## Enhancements
 - Alexa Delivery Notifications support
 - README.md file changes

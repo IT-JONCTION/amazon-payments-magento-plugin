@@ -40,11 +40,6 @@ class Amazon_Payments_Model_Customer extends Mage_Customer_Model_Customer
 
             $customerSession->setAmazonProfile($amazonProfile);
 
-            // Set quote customer ID for 1.9.4.2 security fix
-            if (!$checkoutSession->getQuote()->getCustomerId()) {
-                $checkoutSession->getQuote()->setCustomerId($customerSession->getId())->save();
-            }
-
             // If Magento customer account exists and there is no association, then the Magento account
             // must be verified, as Amazon does not verify email addresses.
             if (!$row->getLoginId() && $this->getId()) {
@@ -64,6 +59,10 @@ class Amazon_Payments_Model_Customer extends Mage_Customer_Model_Customer
                 $checkoutSession->setAmazonAccessToken($token);
             }
 
+            // Set quote customer ID for 1.9.4.2 security fix
+            if ($this->getId() && !$checkoutSession->getQuote()->getCustomerId()) {
+                $checkoutSession->getQuote()->setCustomerId($customerSession->getId())->save();
+            }
 
         }
 

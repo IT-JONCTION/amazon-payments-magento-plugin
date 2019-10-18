@@ -303,7 +303,7 @@ or [Learn More about Amazon Pay](https://pay.amazon.com/sp/magento)
    * Fix iundefined isSecureCart #71 b4943d5
    * Fix redirect if secure URL config is not HTTPS #71 f95734f
    * #24 more fixes for undefined index notices on certain themes 7dd2e20
-   * Add Amazon pay button under Payment Info (enabled in config, off by default) for thrid-party checkouts 96fbb35
+   * Add Amazon pay button under Payment Info (enabled in config, off by default) for third-party checkouts 96fbb35
    * #72 add payment option pay button 4721339
    * Fix order state to be processing for auth & capture 27bfec4
    * Fix customer address update for virtual (no shipping address) orders cea65e4

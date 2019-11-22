@@ -373,12 +373,7 @@
 
         public function createSignature($http_request_method, $request_uri, $request_parameters, $pre_signed_headers, $request_payload, $timeStamp)
         {
-            if (class_exists('Crypt_RSA', false)) {
-                $rsa = new Crypt_RSA();
-            } else {
-                // For newer versions of Magento
-                $rsa = new \phpseclib\Crypt\RSA();
-            }
+            $rsa = $this->setupRSA();
 
             $pre_signed_headers['X-Amz-Pay-Date'] = $timeStamp;
             $pre_signed_headers['X-Amz-Pay-Host'] = $this->getHost($request_uri);
@@ -409,7 +404,13 @@
         }
 
         private function setupRSA() {
-            $rsa = new RSA();
+            if (class_exists('Crypt_RSA', false)) {
+                $rsa = new Crypt_RSA();
+            } else {
+                // For newer versions of Magento
+                $rsa = new \phpseclib\Crypt\RSA();
+            }
+
             $rsa->setHash(self::HASH_ALGORITHM);
             $rsa->setMGFHash(self::HASH_ALGORITHM);
             $rsa->setSaltLength(20);
